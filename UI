@@ -4,10 +4,13 @@ screen = t.Screen()
 
 screen.addshape('heartV2.gif')
 screen.addshape('deadHeartV1.gif')
+screen.addshape('pointUnfilledV1.gif')
+screen.addshape('pointFilledV1.gif')
 
 currHeartsl = 3
 currHeartsr = 3
-
+currPtsl = 0
+currPtsr = 0
 
 heart1l = t.Turtle()
 heart1l.shape('heartV2.gif')
@@ -40,6 +43,38 @@ heart3r.pu()
 heart3r.goto(170, 130)
 
 
+point1l = t.Turtle()
+point1l.shape('pointUnfilledV1.gif')
+point1l.pu()
+point1l.goto(-170, -173)
+
+point2l = t.Turtle()
+point2l.shape('pointUnfilledV1.gif')
+point2l.pu()
+point2l.goto(-170, -150)
+
+point3l = t.Turtle()
+point3l.shape('pointUnfilledV1.gif')
+point3l.pu()
+point3l.goto(-170, -127)
+
+point1r = t.Turtle()
+point1r.shape('pointUnfilledV1.gif')
+point1r.pu()
+point1r.goto(170, -173)
+
+point2r = t.Turtle()
+point2r.shape('pointUnfilledV1.gif')
+point2r.pu()
+point2r.goto(170, -150)
+
+point3r = t.Turtle()
+point3r.shape('pointUnfilledV1.gif')
+point3r.pu()
+point3r.goto(170, -127)
+
+
+
 def removeHeartL():
   global currHeartsl
   if currHeartsl == 3:
@@ -54,21 +89,57 @@ def removeHeartL():
 def removeHeartR():
   global currHeartsr
   if currHeartsr == 3:
-    heart3l.shape('deadHeartV1.gif')
+    heart3r.shape('deadHeartV1.gif')
   elif currHeartsr == 2:
-    heart2l.shape('deadHeartV1.gif')
+    heart2r.shape('deadHeartV1.gif')
   elif currHeartsr == 1:
-    heart1l.shape('deadHeartV1.gif')    
+    heart1r.shape('deadHeartV1.gif')    
     
   currHeartsr -=1  
+  
+def addPointL():
+  global currPtsl
+  if currPtsl == 2:
+    point3l.shape('pointFilledV1.gif')
+  elif currPtsl == 1:
+    point2l.shape('pointFilledV1.gif')
+  elif currPtsl == 0:
+    point1l.shape('pointFilledV1.gif')
     
-if(input("remove heart l?") == "y"):
-  removeHeartL()
+  currPtsl +=1    
+    
+def addPointR():
+  global currPtsr
+  if currPtsr == 2:
+    point3r.shape('pointFilledV1.gif')
+  elif currPtsr == 1:
+    point2r.shape('pointFilledV1.gif')
+  elif currPtsr == 0:
+    point1r.shape('pointFilledV1.gif')    
+    
+  currPtsr +=1    
+    
+    
+# SAMPLE USAGE - HEARTS    
 
 if(input("remove heart l?") == "y"):
   removeHeartL()
+
+if(input("remove heart r?") == "y"):
+  removeHeartR()
   
 if(input("remove heart l?") == "y"):
-  removeHeartL()  
+  removeHeartL() 
+  
+# SAMPLE USAGE - HEARTS    
+
+if(input("add point l?") == "y"):
+  addPointL()
+
+if(input("add point r?") == "y"):
+  addPointR()
+  
+if(input("add point l?") == "y"):
+  addPointL()   
 
 screen.mainloop()
