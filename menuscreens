@@ -1,0 +1,189 @@
+import turtle
+
+screen = turtle.Screen()
+screen.setup(600,400)
+screen.bgcolor("#0a0a14")
+screen.title("MAIN MENU")
+screen.tracer(0)
+
+pen = turtle.Turtle()
+pen.hideturtle()
+pen.speed(0)
+
+page = "splash"
+username = ""
+
+bg = turtle.Turtle()
+bg.hideturtle()
+bg.speed(0)
+screen.addshape("background_space_invaders.gif")
+bg.shape("background_space_invaders.gif")
+bg.goto(0, 0)
+
+def box(x, y, w, h, fill, border):
+    pen.penup()
+    pen.goto(x, y)
+    pen.fillcolor(fill)
+    pen.pencolor(border)
+    pen.pensize(2)
+    pen.begin_fill()
+    pen.pendown()
+    pen.goto(x+w, y)
+    pen.goto(x+w, y+h)
+    pen.goto(x, y+h)
+    pen.goto(x, y)
+    pen.end_fill()
+    pen.penup()
+
+def line(x1, y1, x2, y2):
+    pen.penup()
+    pen.goto(x1, y1)
+    pen.pencolor("#00c88c")
+    pen.pensize(2)
+    pen.pendown()
+    pen.goto(x2, y2)
+    pen.penup()
+
+def text(t, x, y, size, color, align="center"):
+    pen.penup()
+    pen.goto(x, y)
+    pen.pencolor(color)
+    pen.write(t, align=align, font=("Courier", size, "bold"))
+
+def grid():
+    pen.pensize(1)
+    pen.pencolor("#003c2d")
+    for x in range(-300, 301, 40):
+        pen.penup()
+        pen.goto(x, -200)
+        pen.pendown()
+        pen.goto(x, 200)
+    for y in range(-200, 201, 40):
+        pen.penup()
+        pen.goto(-300, y)
+        pen.pendown()
+        pen.goto(300, y)
+    pen.penup()
+
+def draw_splash():
+    pen.clear()
+    bg.showturtle()
+    text("CLICK TO START", 0, -170, 14, "#00ffb4")
+    screen.update()
+
+def draw_name_entry():
+    bg.hideturtle()
+    pen.clear()
+    grid()
+    box(-300, 110, 600, 90, "#141c28", "#00c88c")
+    line(-300, 110, 300, 110)
+    text("ENTER YOUR NAME", 0, 118, 22, "#00ffb4")
+    box(-200, 60, 400, 36, "#0a0a14", "#00c88c")
+    text(username + "_", -196, 65, 16, "#fff064", align="left")
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    cols = 9
+    kx, ky = -270, 40
+    kw, kh = 52, 34
+    for i, ch in enumerate(letters):
+        col = i % cols
+        row = i // cols
+        bx = kx + col * (kw + 4)
+        by = ky - row * (kh + 4)
+        box(bx, by - kh, kw, kh, "#141c28", "#00c88c")
+        text(ch, bx + kw // 2, by - kh + 8, 13, "#00ffb4")
+    box(-290, -155, 120, 34, "#141c28", "#00ff80")
+    text("DEL", -230, -148, 13, "#ff6060")
+    box(170, -155, 120, 34, "#141c28", "#00ff80")
+    text("DONE", 230, -148, 13, "#00ffb4")
+    screen.update()
+
+def draw_welcome():
+    pen.clear()
+    grid()
+    box(-300, 110, 600, 90, "#141c28", "#00c88c")
+    line(-300, 110, 300, 110)
+    text("Welcome, " + username + "!", 0, 118, 18, "#fff064")
+    text("Would you like to modify settings?", 0, 70, 12, "#00ffb4")
+    box(-200, 10, 160, 44, "#141c28", "#00ff80")
+    text("YES", -120, 22, 16, "#00ff80")
+    box(40, 10, 160, 44, "#141c28", "#ff6060")
+    text("NO", 120, 22, 16, "#ff6060")
+    screen.update()
+
+def draw_menu():
+    pen.clear()
+    grid()
+    box(-300, 90, 600, 110, "#141c28", "#00c88c")
+    line(-300, 90, 300, 90)
+    text("M A I N   M E N U", 0, 108, 26, "#00ffb4")
+    text("[ SELECT AN OPTION ]", 0, 94, 11, "#007858")
+    box(-140, 10, 280, 52, "#141c28", "#00c88c")
+    text("Speed Settings", 0, 25, 15, "#00ffb4")
+    box(-140, -55, 280, 52, "#141c28", "#00c88c")
+    text("Difficulty Levels", 0, -40, 15, "#00ffb4")
+    screen.update()
+
+def draw_sub(title):
+    pen.clear()
+    grid()
+    box(-300, 110, 600, 90, "#141c28", "#00c88c")
+    line(-300, 110, 300, 110)
+    text(title, 0, 118, 26, "#fff064")
+    box(-240, -100, 480, 210, "#141c28", "#00c88c")
+    box(-290, -190, 120, 40, "#141c28", "#00c88c")
+    text("< BACK", -230, -180, 12, "#00ffb4", align="left")
+    screen.update()
+
+def click(x, y):
+    global page, username
+
+    if page == "splash":
+        page = "name"
+        draw_name_entry()
+
+    elif page == "name":
+        letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        cols = 9
+        kx, ky = -270, 40
+        kw, kh = 52, 34
+        for i, ch in enumerate(letters):
+            col = i % cols
+            row = i // cols
+            bx = kx + col * (kw + 4)
+            by = ky - row * (kh + 4)
+            if bx <= x <= bx + kw and by - kh <= y <= by:
+                username += ch
+                draw_name_entry()
+                return
+        if -290 <= x <= -170 and -155 <= y <= -121:
+            username = username[:-1]
+            draw_name_entry()
+        elif 170 <= x <= 290 and -155 <= y <= -121:
+            if len(username) > 0:
+                page = "welcome"
+                draw_welcome()
+
+    elif page == "welcome":
+        if -200 <= x <= -40 and 10 <= y <= 54:
+            page = "menu"
+            draw_menu()
+        elif 40 <= x <= 200 and 10 <= y <= 54:
+            print("N/A")
+
+    elif page == "menu":
+        if -140 <= x <= 140 and 10 <= y <= 62:
+            page = "option1"
+            draw_sub("Speed Settings")
+        elif -140 <= x <= 140 and -55 <= y <= -3:
+            page = "option2"
+            draw_sub("Difficulty Levels")
+
+    elif page in ["option1", "option2"]:
+        if -290 <= x <= -170 and -190 <= y <= -150:
+            page = "menu"
+            draw_menu()
+
+draw_splash()
+screen.onclick(click)
+screen.listen()
+turtle.mainloop()
