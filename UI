@@ -1,0 +1,74 @@
+import turtle as t
+
+screen = t.Screen()
+
+screen.addshape('heartV2.gif')
+screen.addshape('deadHeartV1.gif')
+
+currHeartsl = 3
+currHeartsr = 3
+
+
+heart1l = t.Turtle()
+heart1l.shape('heartV2.gif')
+heart1l.pu()
+heart1l.goto(-170, 170)
+
+heart2l = t.Turtle()
+heart2l.shape('heartV2.gif')
+heart2l.pu()
+heart2l.goto(-170, 150)
+
+heart3l = t.Turtle()
+heart3l.shape('heartV2.gif')
+heart3l.pu()
+heart3l.goto(-170, 130)
+
+heart1r = t.Turtle()
+heart1r.shape('heartV2.gif')
+heart1r.pu()
+heart1r.goto(170, 170)
+
+heart2r = t.Turtle()
+heart2r.shape('heartV2.gif')
+heart2r.pu()
+heart2r.goto(170, 150)
+
+heart3r = t.Turtle()
+heart3r.shape('heartV2.gif')
+heart3r.pu()
+heart3r.goto(170, 130)
+
+
+def removeHeartL():
+  global currHeartsl
+  if currHeartsl == 3:
+    heart3l.shape('deadHeartV1.gif')
+  elif currHeartsl == 2:
+    heart2l.shape('deadHeartV1.gif')
+  elif currHeartsl == 1:
+    heart1l.shape('deadHeartV1.gif')
+    
+  currHeartsl -=1    
+    
+def removeHeartR():
+  global currHeartsr
+  if currHeartsr == 3:
+    heart3l.shape('deadHeartV1.gif')
+  elif currHeartsr == 2:
+    heart2l.shape('deadHeartV1.gif')
+  elif currHeartsr == 1:
+    heart1l.shape('deadHeartV1.gif')    
+    
+  currHeartsr -=1  
+    
+if(input("remove heart l?") == "y"):
+  removeHeartL()
+
+if(input("remove heart l?") == "y"):
+  removeHeartL()
+  
+if(input("remove heart l?") == "y"):
+  removeHeartL()  
+
+screen.mainloop()
