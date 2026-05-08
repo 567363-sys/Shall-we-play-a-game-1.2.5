@@ -1,0 +1,62 @@
+import turtle as t
+import random
+
+screen = t.Screen()
+
+
+
+blackPart = t.Turtle()
+blackPart.shape("square")
+blackPart.shapesize(5.1, 0.6)
+blackPart.color("black")
+blackPart.pu()
+
+redPart = t.Turtle()
+redPart.shape("square")
+redPart.shapesize(5, 0.5)
+redPart.color("red")
+redPart.pu()
+
+
+
+def setHealth(healthPercentage):
+  health = healthPercentage / 100
+  
+  redPart.shapesize(5 * health, 0.5)
+  redPart.goto(0, -50 * (1 -health))
+  screen.update()
+  
+# setHealth(int(input("health")))
+
+input('hiding')
+
+redPart.ht()
+blackPart.ht()
+
+screen.addshape("okd9y7ipm99fnywehke8.gif")
+screen.addshape("Screenshot 2026-05-08 2.00.07 PM.gif")
+screen.addshape("Screenshot 2026-05-08 1.47.51 PM.gif")
+screen.addshape("Screenshot 2026-05-08 1.47.37 PM.gif")
+
+captchaList = ["okd9y7ipm99fnywehke8.gif", "Screenshot 2026-05-08 2.00.07 PM.gif", "Screenshot 2026-05-08 1.47.51 PM.gif", "Screenshot 2026-05-08 1.47.37 PM.gif"]
+answerList = ["dsjcbka", "E3TJ6jdp", "inquiry", "overlooks"]
+
+
+captcha = t.Turtle()
+captcha.shape("okd9y7ipm99fnywehke8.gif")
+captcha.ht()
+
+
+def CAPTCHA():
+  captchaNum = random.randint(0,3)
+  captcha.shape(captchaList[captchaNum])
+  captcha.st()
+  response = input("What does the captcha say?")
+  
+  while(response != answerList[captchaNum]):
+    response = input("What does the captcha say?")
+  print("Successfully confirmed.")  
+  captcha.ht()  
+  
+CAPTCHA()
+screen.mainloop()
