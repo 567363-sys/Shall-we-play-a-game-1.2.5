@@ -83,15 +83,15 @@ def draw_name_entry(player_num):
     grid()
 
     if player_num == 1:
-        accent      = "#ff8c00"
-        highlight   = "#ffd080"
-        label       = "ENTER PLAYER 1 NAME"
-        current     = username
+        accent    = "#ff8c00"
+        highlight = "#ffd080"
+        label     = "ENTER PLAYER 1 NAME"
+        current   = username
     else:
-        accent      = "#9b30ff"
-        highlight   = "#d580ff"
-        label       = "ENTER PLAYER 2 NAME"
-        current     = username2
+        accent    = "#9b30ff"
+        highlight = "#d580ff"
+        label     = "ENTER PLAYER 2 NAME"
+        current   = username2
 
     box(-HALF_W, 200, WIDTH, 80, "#141c28", accent)
     pen.penup(); pen.goto(-HALF_W, 200); pen.pencolor(accent)
@@ -144,13 +144,7 @@ def draw_loading():
     box(bar_x, bar_y, bar_w, bar_h, "#0a0a14", "#00c88c")
 
     steps = 40
-    messages = [
-        (0,  "Initializing..."),
-        (10, "Loading assets..."),
-        (22, "Spawning enemies..."),
-        (34, "Almost ready..."),
-    ]
-    msg_index = 0
+    messages = [(0, "Initializing..."), (10, "Loading assets..."), (22, "Spawning enemies..."), (34, "Almost ready...")]
 
     for i in range(steps + 1):
         fill_w = int((bar_w - 4) * i / steps)
@@ -178,7 +172,41 @@ def draw_loading():
     text("READY!", 0, bar_y - 80, 18, "#00ffb4")
     screen.update()
     time.sleep(0.8)
-    draw_menu()
+    draw_versus()
+
+def draw_versus():
+    pen.clear()
+    grid()
+
+    box(-HALF_W, -HALF_H, HALF_W, HEIGHT, "#1a0800", "#ff8c00")
+    box(0,       -HALF_H, HALF_W, HEIGHT, "#0d001a", "#9b30ff")
+
+    pen.penup()
+    pen.goto(0, -HALF_H)
+    pen.pencolor("#ffffff")
+    pen.pensize(3)
+    pen.pendown()
+    pen.goto(0, HALF_H)
+    pen.penup()
+
+    text(username,  -100, 80, 18, "#ffd080")
+    text("P1",      -100, 20, 36, "#ff8c00")
+
+    text(username2,  100, 80, 18, "#d580ff")
+    text("P2",       100, 20, 36, "#9b30ff")
+
+    box(-48, -60, 96, 56, "#0a0a14", "#ffffff")
+    text("VS", 0, -52, 32, "#ffffff")
+
+    box(-100, -220, 200, 45, "#141c28", "#00c88c")
+    text("NEXT >", 0, -208, 14, "#00ffb4")
+
+    screen.update()
+
+def draw_game():
+    pen.clear()
+    screen.bgcolor("#ffffff")
+    screen.update()
 
 def draw_menu():
     pen.clear()
@@ -262,6 +290,11 @@ def click(x, y):
             page = "loading"
             draw_loading()
 
+    elif page == "versus":
+        if -100 <= x <= 100 and -220 <= y <= -175:
+            page = "game"
+            draw_game()
+
     elif page == "menu":
         if -120 <= x <= 120 and 60 <= y <= 120:
             page = "option1"
@@ -280,34 +313,3 @@ screen.onclick(click)
 screen.listen()
 turtle.mainloop()
 
-"""
-def draw_player_cards():
-    box(-190, 30, 170, 120, "#1a0a00", "#ff8c00")
-    text(username,  -105,  110, 13, "#ffd080")
-    text("P1",      -105,   80, 28, "#ff8c00")
-    text("SCORE: 0",-105,   45, 11, "#ffd080")
-
-    box(20, 30, 170, 120, "#0d001a", "#9b30ff")
-    text(username2,  105,  110, 13, "#d580ff")
-    text("P2",       105,   80, 28, "#9b30ff")
-    text("SCORE: 0", 105,   45, 11, "#d580ff")
-
-def draw_versus_splash():
-    pen.clear()
-    grid()
-    draw_player_cards()
-    text("V S", 0, 60, 36, "#ffffff")
-    box(-60, -60, 120, 40, "#141c28", "#00c88c")
-    text("PLAY", 0, -48, 16, "#00ffb4")
-    screen.update()
-
-def animate_countdown():
-    for n in ["3", "2", "1", "GO!"]:
-        pen.clear()
-        grid()
-        draw_player_cards()
-        ...
-
-def draw_hud():
-    ...
-"""
