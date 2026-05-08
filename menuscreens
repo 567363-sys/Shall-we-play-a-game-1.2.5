@@ -16,8 +16,8 @@ username = ""
 bg = turtle.Turtle()
 bg.hideturtle()
 bg.speed(0)
-screen.addshape("background_space_invaders.gif")
-bg.shape("background_space_invaders.gif")
+screen.addshape("SECOND_background_space_invaders.gif")
+bg.shape("SECOND_background_space_invaders.gif")
 bg.goto(0, 0)
 
 WIDTH, HEIGHT = 400, 600
