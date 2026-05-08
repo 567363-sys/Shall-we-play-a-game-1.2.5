@@ -1,4 +1,5 @@
 import turtle
+import time
 
 screen = turtle.Screen()
 screen.setup(400,600)
@@ -12,6 +13,7 @@ pen.speed(0)
 
 page = "splash"
 username = ""
+username2 = ""
 
 bg = turtle.Turtle()
 bg.hideturtle()
@@ -75,15 +77,28 @@ def draw_splash():
     text("CLICK TO START", 0, -250, 16, "#00ffb4")
     screen.update()
 
-def draw_name_entry():
+def draw_name_entry(player_num):
     bg.hideturtle()
     pen.clear()
     grid()
-    box(-HALF_W, 200, WIDTH, 80, "#141c28", "#00c88c")
-    line(-HALF_W, 200, HALF_W, 200)
-    text("ENTER YOUR NAME", 0, 220, 20, "#00ffb4")
-    box(-150, 150, 300, 40, "#0a0a14", "#00c88c")
-    text(username + "_", -140, 158, 16, "#fff064", align="left")
+
+    if player_num == 1:
+        accent      = "#ff8c00"
+        highlight   = "#ffd080"
+        label       = "ENTER PLAYER 1 NAME"
+        current     = username
+    else:
+        accent      = "#9b30ff"
+        highlight   = "#d580ff"
+        label       = "ENTER PLAYER 2 NAME"
+        current     = username2
+
+    box(-HALF_W, 200, WIDTH, 80, "#141c28", accent)
+    pen.penup(); pen.goto(-HALF_W, 200); pen.pencolor(accent)
+    pen.pensize(2); pen.pendown(); pen.goto(HALF_W, 200); pen.penup()
+    text(label, 0, 220, 16, highlight)
+    box(-150, 150, 300, 40, "#0a0a14", accent)
+    text(current + "_", -140, 158, 16, "#fff064", align="left")
     letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     cols = 7
     kx, ky = -160, 120
@@ -93,12 +108,12 @@ def draw_name_entry():
         row = i // cols
         bx = kx + col * (kw + 5)
         by = ky - row * (kh + 5)
-        box(bx, by - kh, kw, kh, "#141c28", "#00c88c")
-        text(ch, bx + kw // 2, by - kh + 8, 12, "#00ffb4")
-    box(-160, -250, 100, 40, "#141c28", "#00ff80")
+        box(bx, by - kh, kw, kh, "#141c28", accent)
+        text(ch, bx + kw // 2, by - kh + 8, 12, highlight)
+    box(-160, -250, 100, 40, "#141c28", accent)
     text("DEL", -110, -240, 12, "#ff6060")
-    box(60, -250, 100, 40, "#141c28", "#00ff80")
-    text("DONE", 110, -240, 12, "#00ffb4")
+    box(60, -250, 100, 40, "#141c28", accent)
+    text("DONE", 110, -240, 12, highlight)
     screen.update()
 
 def draw_welcome():
@@ -106,13 +121,64 @@ def draw_welcome():
     grid()
     box(-HALF_W, 200, WIDTH, 80, "#141c28", "#00c88c")
     line(-HALF_W, 200, HALF_W, 200)
-    text("Welcome, " + username + "!", 0, 220, 18, "#fff064")
+    text("Welcome, " + username + " & " + username2 + "!", 0, 220, 14, "#fff064")
     text("Modify settings?", 0, 150, 14, "#00ffb4")
     box(-140, 50, 120, 50, "#141c28", "#00ff80")
     text("YES", -80, 65, 16, "#00ff80")
     box(20, 50, 120, 50, "#141c28", "#ff6060")
     text("NO", 80, 65, 16, "#ff6060")
     screen.update()
+
+def draw_loading():
+    pen.clear()
+    grid()
+    box(-HALF_W, 200, WIDTH, 80, "#141c28", "#00c88c")
+    line(-HALF_W, 200, HALF_W, 200)
+    text("LOADING GAME", 0, 220, 20, "#00ffb4")
+
+    bar_x = -160
+    bar_y = 20
+    bar_w = 320
+    bar_h = 30
+
+    box(bar_x, bar_y, bar_w, bar_h, "#0a0a14", "#00c88c")
+
+    steps = 40
+    messages = [
+        (0,  "Initializing..."),
+        (10, "Loading assets..."),
+        (22, "Spawning enemies..."),
+        (34, "Almost ready..."),
+    ]
+    msg_index = 0
+
+    for i in range(steps + 1):
+        fill_w = int((bar_w - 4) * i / steps)
+        if fill_w > 0:
+            box(bar_x + 2, bar_y + 2, fill_w, bar_h - 4, "#00c88c", "#00c88c")
+
+        for threshold, msg in messages:
+            if i == threshold:
+                pen.penup()
+                pen.goto(0, bar_y - 40)
+                pen.pencolor("#0a0a14")
+                pen.write(" " * 40, align="center", font=("Courier", 11, "bold"))
+                text(msg, 0, bar_y - 40, 11, "#007858")
+
+        pct = int(i / steps * 100)
+        pen.penup()
+        pen.goto(0, bar_y + 8)
+        pen.pencolor("#0a0a14")
+        pen.write("     ", align="center", font=("Courier", 11, "bold"))
+        text(str(pct) + "%", 0, bar_y + 8, 11, "#fff064")
+
+        screen.update()
+        time.sleep(0.045)
+
+    text("READY!", 0, bar_y - 80, 18, "#00ffb4")
+    screen.update()
+    time.sleep(0.8)
+    draw_menu()
 
 def draw_menu():
     pen.clear()
@@ -138,13 +204,13 @@ def draw_sub(title):
     screen.update()
 
 def click(x, y):
-    global page, username
+    global page, username, username2
 
     if page == "splash":
-        page = "name"
-        draw_name_entry()
+        page = "name1"
+        draw_name_entry(1)
 
-    elif page == "name":
+    elif page == "name1":
         letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         cols = 7
         kx, ky = -160, 120
@@ -156,13 +222,35 @@ def click(x, y):
             by = ky - row * (kh + 5)
             if bx <= x <= bx + kw and by - kh <= y <= by:
                 username += ch
-                draw_name_entry()
+                draw_name_entry(1)
                 return
         if -160 <= x <= -60 and -250 <= y <= -210:
             username = username[:-1]
-            draw_name_entry()
+            draw_name_entry(1)
         elif 60 <= x <= 160 and -250 <= y <= -210:
             if len(username) > 0:
+                page = "name2"
+                draw_name_entry(2)
+
+    elif page == "name2":
+        letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        cols = 7
+        kx, ky = -160, 120
+        kw, kh = 40, 30
+        for i, ch in enumerate(letters):
+            col = i % cols
+            row = i // cols
+            bx = kx + col * (kw + 5)
+            by = ky - row * (kh + 5)
+            if bx <= x <= bx + kw and by - kh <= y <= by:
+                username2 += ch
+                draw_name_entry(2)
+                return
+        if -160 <= x <= -60 and -250 <= y <= -210:
+            username2 = username2[:-1]
+            draw_name_entry(2)
+        elif 60 <= x <= 160 and -250 <= y <= -210:
+            if len(username2) > 0:
                 page = "welcome"
                 draw_welcome()
 
@@ -171,8 +259,8 @@ def click(x, y):
             page = "menu"
             draw_menu()
         elif 20 <= x <= 140 and 50 <= y <= 100:
-            page = "menu"
-            draw_menu()
+            page = "loading"
+            draw_loading()
 
     elif page == "menu":
         if -120 <= x <= 120 and 60 <= y <= 120:
@@ -191,3 +279,35 @@ draw_splash()
 screen.onclick(click)
 screen.listen()
 turtle.mainloop()
+
+"""
+def draw_player_cards():
+    box(-190, 30, 170, 120, "#1a0a00", "#ff8c00")
+    text(username,  -105,  110, 13, "#ffd080")
+    text("P1",      -105,   80, 28, "#ff8c00")
+    text("SCORE: 0",-105,   45, 11, "#ffd080")
+
+    box(20, 30, 170, 120, "#0d001a", "#9b30ff")
+    text(username2,  105,  110, 13, "#d580ff")
+    text("P2",       105,   80, 28, "#9b30ff")
+    text("SCORE: 0", 105,   45, 11, "#d580ff")
+
+def draw_versus_splash():
+    pen.clear()
+    grid()
+    draw_player_cards()
+    text("V S", 0, 60, 36, "#ffffff")
+    box(-60, -60, 120, 40, "#141c28", "#00c88c")
+    text("PLAY", 0, -48, 16, "#00ffb4")
+    screen.update()
+
+def animate_countdown():
+    for n in ["3", "2", "1", "GO!"]:
+        pen.clear()
+        grid()
+        draw_player_cards()
+        ...
+
+def draw_hud():
+    ...
+"""
