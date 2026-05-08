@@ -1,3 +1,5 @@
+#need to implement captcha
+
 import turtle as t
 
 '''
@@ -11,14 +13,18 @@ fire with w/Up
 screen = t.Screen()
 screen.tracer(0,2) #used to be 0,2
 screen.setup(400,600)
-upHp=50
-downHp=50
+upHp=20
+downHp=20
 upHpTurtle=t.Turtle()
 downHpTurtle=t.Turtle()
+captcha_turtle=t.Turtle()
+captcha_turtle.pu()
+captcha_turtle.ht()
 upHpTurtle.pu()
 downHpTurtle.pu()
 topBullets=[]
 bottomBullets=[]
+human=False
 
 upHpTurtle.goto(-150,250)
 downHpTurtle.goto(-150,-250)
@@ -105,6 +111,14 @@ def downBullet():
   # for i in range(300):
   #   screen.update()
   #   bullet.sety(bullet.ycor()+1.5)
+
+def captcha():
+  captcha_turtle.goto(-170,250)
+  captcha_turtle.write("Wait! Are you REALLY a human?", font=("Arial", 22, "normal"))
+  while human!=True:
+    print("inside")
+    
+captcha()
   
   
 screen.onkeypress(testUpHp, 'q')
@@ -119,7 +133,7 @@ screen.listen()
 
 
 
-for i in range(10000000):
+while True:
   goodblock1.setx(goodblock1.xcor()-0.12)
   goodblock2.setx(goodblock2.xcor()-0.12)
   goodblock3.setx(goodblock3.xcor()-0.12)
