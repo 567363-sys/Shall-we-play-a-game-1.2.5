@@ -130,7 +130,7 @@ def downBullet():
 
 def captcha():
   human=False
-  ans=['3','5','6','7','10']
+  ans=['3','5','6','7','10'] 
   captcha_turtle.goto(-170,250)
   captcha_turtle.turtlesize(0.7,0.7)
   captcha_turtle.pencolor("black")
@@ -141,8 +141,16 @@ def captcha():
   print("Type in the numbers of all squares with traffic lights. Separate them with commas.")
   #answer: 3, 5, 6, 7, 10
   # while human!=True:
+  count=0
   while human!=True:
-    if human!=True:
+    if human!=True and count==0:
+      user_input=input()
+      user_res=user_input.split(',')
+      count+=1
+      if user_res==ans:
+        human=True
+    elif human!=True and count>0:
+      print("Captcha Failure: Please try again.")
       user_input=input()
       user_res=user_input.split(',')
       if user_res==ans:
