@@ -1,0 +1,151 @@
+# -----------------------------------------
+# INITIAL SETUP
+# -----------------------------------------
+
+create screen (400x600)
+set background color to dark
+set title to "MAIN MENU"
+turn off automatic screen updates
+
+create a drawing turtle called pen (hidden)
+create a turtle called bg for background image
+
+set global variables:
+    page = "splash"        # tracks which screen we are on
+    username = ""          # player 1 name
+    username2 = ""         # player 2 name
+
+load background image into bg turtle
+
+
+# -----------------------------------------
+# BASIC DRAWING FUNCTIONS
+# -----------------------------------------
+
+function draw_box(x, y, width, height, fill_color, border_color):
+    # draws a rectangle with border
+
+function draw_line(x1, y1, x2, y2):
+    # draws a straight line
+
+function draw_text(text, x, y, size, color):
+    # writes text on screen
+
+function draw_grid():
+    # draws background grid lines for style
+
+
+# -----------------------------------------
+# PAGE DRAWING FUNCTIONS
+# -----------------------------------------
+
+function draw_splash():
+    clear screen
+    show background image
+    draw "CLICK TO START" text
+
+
+function draw_name_entry(player_number):
+    # hides background, draws grid
+    # draws title: "ENTER PLAYER 1 NAME" or "ENTER PLAYER 2 NAME"
+    # draws text box showing typed name
+    # draws A–Z letter buttons
+    # draws DEL and DONE buttons
+
+
+function draw_welcome():
+    # shows welcome message with both usernames
+    # shows YES and NO buttons
+
+
+function draw_loading():
+    # draws loading bar
+    # fills bar gradually
+    # shows changing messages ("Initializing...", etc.)
+    # after loading finishes → go to versus screen
+
+
+function draw_versus():
+    # splits screen into left (P1) and right (P2)
+    # shows usernames and P1/P2 labels
+    # shows big "VS"
+    # shows NEXT button
+
+
+function draw_game():
+    # placeholder for actual game screen
+    # currently just clears screen and sets white background
+
+
+function draw_menu():
+    # shows main settings menu
+    # options:
+    #   Speed Settings
+    #   Difficulty Levels
+
+
+function draw_submenu(title):
+    # shows submenu with given title
+    # shows BACK button
+
+
+# -----------------------------------------
+# CLICK HANDLER (STATE MACHINE)
+# -----------------------------------------
+
+function on_click(x, y):
+
+    if page == "splash":
+        # any click → go to player 1 name entry
+        page = "name1"
+        draw_name_entry(1)
+
+
+    if page == "name1":
+        # if clicked a letter → add to username
+        # if clicked DEL → remove last letter
+        # if clicked DONE → go to player 2 name entry
+
+
+    if page == "name2":
+        # same logic as name1 but for username2
+        # DONE → go to welcome screen
+
+
+    if page == "welcome":
+        if clicked YES:
+            page = "menu"
+            draw_menu()
+        if clicked NO:
+            page = "loading"
+            draw_loading()
+
+
+    if page == "versus":
+        if clicked NEXT:
+            page = "game"
+            draw_game()
+
+
+    if page == "menu":
+        if clicked Speed Settings:
+            page = "option1"
+            draw_submenu("Speed Settings")
+        if clicked Difficulty Levels:
+            page = "option2"
+            draw_submenu("Difficulty Levels")
+
+
+    if page is "option1" or "option2":
+        if clicked BACK:
+            page = "menu"
+            draw_menu()
+
+
+# -----------------------------------------
+# MAINLOOP
+# -----------------------------------------
+
+draw_splash()          # start on splash screen
+listen for mouse clicks → call on_click()
+keep window open forever
