@@ -1,6 +1,7 @@
 #need to implement captcha
 
 import turtle as t
+import time
 
 '''
 
@@ -11,7 +12,7 @@ fire with w/Up
 
 '''
 screen = t.Screen()
-screen.tracer(0,2) #used to be 0,2
+screen.tracer(0,2)
 screen.setup(400,600)
 upHp=20
 downHp=20
@@ -19,12 +20,11 @@ upHpTurtle=t.Turtle()
 downHpTurtle=t.Turtle()
 captcha_turtle=t.Turtle()
 captcha_turtle.pu()
-captcha_turtle.ht()
+screen.update()
 upHpTurtle.pu()
 downHpTurtle.pu()
 topBullets=[]
 bottomBullets=[]
-human=False
 
 upHpTurtle.goto(-150,250)
 downHpTurtle.goto(-150,-250)
@@ -50,6 +50,11 @@ goodblock4.penup()
 goodblock4.goto(10, 0)
 
 
+captchaImg="download.gif"
+screen.addshape(captchaImg)
+captcha_turtle.shape(captchaImg)
+
+
 up = t.Turtle()
 up.penup()
 up.goto(0, 170)
@@ -61,6 +66,17 @@ down.penup()
 down.goto(0, -170)
 down.setheading(90)
 down.shapesize(3)
+
+captcha_turtle.ht()
+upHpTurtle.ht()
+downHpTurtle.ht()
+up.ht()
+down.ht()
+goodblock1.ht()
+goodblock2.ht()
+goodblock3.ht()
+goodblock4.ht()
+
 
 def testUpHp():
   print(upHp)
@@ -113,10 +129,29 @@ def downBullet():
   #   bullet.sety(bullet.ycor()+1.5)
 
 def captcha():
+  human=False
+  ans=['3','5','6','7','10']
   captcha_turtle.goto(-170,250)
+  captcha_turtle.turtlesize(0.7,0.7)
+  captcha_turtle.pencolor("black")
   captcha_turtle.write("Wait! Are you REALLY a human?", font=("Arial", 22, "normal"))
+  captcha_turtle.goto(0,0)
+  captcha_turtle.st()
+  screen.update()
+  print("Type in the numbers of all squares with traffic lights. Separate them with commas.")
+  #answer: 3, 5, 6, 7, 10
+  # while human!=True:
   while human!=True:
-    print("inside")
+    if human!=True:
+      user_input=input()
+      user_res=user_input.split(',')
+      if user_res==ans:
+        human=True
+
+  print("human verified")
+  captcha_turtle.ht()
+  captcha_turtle.clear()
+    
     
 captcha()
   
@@ -132,8 +167,15 @@ screen.onkeypress(downBullet,'Up')
 screen.listen()
 
 
+up.st()
+down.st()
+goodblock1.st()
+goodblock2.st()
+goodblock3.st()
+goodblock4.st()
 
 while True:
+  
   goodblock1.setx(goodblock1.xcor()-0.12)
   goodblock2.setx(goodblock2.xcor()-0.12)
   goodblock3.setx(goodblock3.xcor()-0.12)
