@@ -28,6 +28,7 @@ def game_start():
   upHpTurtle.goto(-150,250)
   downHpTurtle.goto(-150,-250)
   
+  
   goodblock1 = t.Turtle()
   goodblock1.shape('square')
   goodblock1.penup()
@@ -48,19 +49,57 @@ def game_start():
   goodblock4.penup()
   goodblock4.goto(10, 0)
   
+  blackPartB = t.Turtle()
+  blackPartB.shape("square")
+  blackPartB.shapesize(0.6, 5.1)
+  blackPartB.color("black")
+  blackPartB.pu()
+  blackPartB.goto(-100, -250)
+  
+  redPartB = t.Turtle()
+  redPartB.shape("square")
+  redPartB.shapesize(0.5, 5)
+  redPartB.color("red")
+  redPartB.pu()
+  redPartB.goto(-100, -250)
+  
+  blackPartT = t.Turtle()
+  blackPartT.shape("square")
+  blackPartT.shapesize(0.6, 5.1)
+  blackPartT.color("black")
+  blackPartT.pu()
+  blackPartT.goto(-100, 250)
+  
+  redPartT = t.Turtle()
+  redPartT.shape("square")
+  redPartT.shapesize(0.5, 5)
+  redPartT.color("red")
+  redPartT.pu()
+  redPartT.goto(-100, 250)
+  
   
   up = t.Turtle()
   up.penup()
   up.goto(0, 170)
   up.setheading(270)
-  up.shapesize(3)
+  up.shape('topPlayerV1.gif')
   
   down = t.Turtle()
   down.penup()
   down.goto(0, -170)
   down.setheading(90)
-  down.shapesize(3)
+  down.shape('bottomPlayerV1.gif')
   #Functions
+  
+  def setHealthB(health):
+    redPartB.shapesize(0.5, 5 * health)
+    redPartB.goto(blackPartB.xcor() -50 * (1 -health), blackPartB.ycor())
+    screen.update()
+  
+  def setHealthT(health):
+    redPartT.shapesize(0.5, 5 * health)
+    redPartT.goto(blackPartT.xcor() -50 * (1 -health), blackPartT.ycor())
+    screen.update()
   
   def testUpHp():
     print(upHp)
@@ -94,6 +133,7 @@ def game_start():
     bullet.color("red")
     bullet.pu()
     bullet.shape("circle")
+    bullet.shapesize(0.5)
     bullet.goto(up.pos())
     bottomBullets.append(bullet)
     # for i in range(300):
@@ -106,6 +146,7 @@ def game_start():
     bullet.color("red")
     bullet.pu()
     bullet.shape("circle")
+    bullet.shapesize(0.5)
     bullet.goto(down.pos())
     topBullets.append(bullet)
     # for i in range(300):
@@ -144,22 +185,24 @@ def game_start():
       down.goto(200,-170)
     if(down.xcor()>200):
       down.goto(-200,-170)
-    upHpTurtle.write("Hp: "+str(upHp), font=("Arial", 30, "normal"))
-    downHpTurtle.write("Hp: "+str(downHp), font=("Arial", 30, "normal"))
+    # upHpTurtle.write("Hp: "+str(upHp), font=("Arial", 30, "normal"))
+    # downHpTurtle.write("Hp: "+str(downHp), font=("Arial", 30, "normal"))
   
     for b in topBullets:
-      b.sety(b.ycor()+10)
+      b.sety(b.ycor()+1)
       if b.distance(up)<20:
         upHpTurtle.clear()
-        upHp-=1
+        upHp-=0.1
+        setHealthT(upHp/50)
       elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
         b.goto(1000,1000)
         b.ht()
     for b in bottomBullets:
-      b.sety(b.ycor()-10)
+      b.sety(b.ycor()-1)
       if b.distance(down)<20:
         downHpTurtle.clear()
-        downHp-=1
+        downHp-=0.1
+        setHealthB(downHp/50)
       elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
         b.goto(1000,1000)
         b.ht()
@@ -185,6 +228,8 @@ bg = t.Turtle()
 bg.hideturtle()
 bg.speed(0)
 screen.addshape("SECOND_background_space_invaders.gif")
+screen.addshape('topPlayerV1.gif')
+screen.addshape('bottomPlayerV1.gif')
 bg.shape("SECOND_background_space_invaders.gif")
 bg.goto(0, 0)
 
