@@ -69,7 +69,7 @@ def game_start():
                     user_res=user_input.split(',')
                     if user_res==ans:
                         human=True
-        print("human verified")
+        print("human verified (1/2)")
         captcha_turtle.ht()
         captcha_turtle.clear()
     
