@@ -1,5 +1,6 @@
 #Imports:
 import turtle as t
+import random
 import time
 '''
 
@@ -73,6 +74,32 @@ def game_start():
         captcha_turtle.clear()
     
     captcha()
+    
+    screen.addshape("okd9y7ipm99fnywehke8.gif")
+    screen.addshape("Screenshot 2026-05-08 2.00.07 PM.gif")
+    screen.addshape("Screenshot 2026-05-08 1.47.51 PM.gif")
+    screen.addshape("Screenshot 2026-05-08 1.47.37 PM.gif")
+    
+    captchaMaker = t.Turtle()
+    captchaMaker.shape("okd9y7ipm99fnywehke8.gif")
+    captchaMaker.ht()
+    
+    def CAPTCHA2():
+        captchaList = ["okd9y7ipm99fnywehke8.gif", "Screenshot 2026-05-08 2.00.07 PM.gif", "Screenshot 2026-05-08 1.47.51 PM.gif", "Screenshot 2026-05-08 1.47.37 PM.gif"]
+        answerList = ["dsjcbka", "e3TJ6Jdp", "inquiry", "overlooks"]
+        captchaNum = random.randint(0,3)
+        img = captchaList[captchaNum]
+        print("Are you robots, " + username + " and "  + username2 + "?")
+        captchaMaker.shape(img)
+        captchaMaker.st()
+        screen.update()
+        response = input("What does the captcha say?")
+        while(response != answerList[captchaNum]):
+            response = input("Wrong Answer. What does the captcha say?")
+        print("Successfully confirmed.")  
+        captchaMaker.ht()  
+    CAPTCHA2()
+    
     
     upHpTurtle.goto(-150,250)
     downHpTurtle.goto(-150,-250)
