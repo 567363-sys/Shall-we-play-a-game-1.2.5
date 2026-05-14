@@ -14,7 +14,15 @@ health=50
 speed=10
 string=str(health) + 'meow' +str(speed)
 print(string.split('meow'))
+
+
+captcha_turtle=t.Turtle()
+captcha_turtle.pu()
+captcha_turtle.hideturtle()
+
+
 def game_start():
+
     list=string.split('meow')
     pen.clear()
     screen.bgcolor('White')
@@ -30,6 +38,41 @@ def game_start():
     downHpTurtle.pu()
     topBullets=[]
     bottomBullets=[]
+    captchaImg="download.gif"
+    screen.addshape(captchaImg)
+    captcha_turtle.shape(captchaImg)
+    def captcha():
+        human=False
+        ans=['3','5','6','7','10'] 
+        captcha_turtle.goto(-170,250)
+        captcha_turtle.turtlesize(0.7,0.7)
+        captcha_turtle.pencolor("black")
+        captcha_turtle.write("Wait! Are you REALLY a human?", font=("Arial", 15, "normal"))
+        captcha_turtle.goto(0,0)
+        captcha_turtle.st()
+        screen.update()
+        print("Type in the numbers of all squares with traffic lights. Separate them with commas.")
+        #answer: 3, 5, 6, 7, 10
+        # while human!=True:
+        count=0
+        while human!=True:
+            if human!=True and count==0:
+                user_input=input()
+                user_res=user_input.split(',')
+                count+=1
+                if user_res==ans:
+                    human=True
+                elif human!=True and count>0:
+                    print("Captcha Failure: Please try again.")
+                    user_input=input()
+                    user_res=user_input.split(',')
+                    if user_res==ans:
+                        human=True
+        print("human verified")
+        captcha_turtle.ht()
+        captcha_turtle.clear()
+    
+    captcha()
     
     upHpTurtle.goto(-150,250)
     downHpTurtle.goto(-150,-250)
@@ -83,6 +126,8 @@ def game_start():
     redPartT.pu()
     redPartT.goto(-100, 250)
     
+
+    
     
     up = t.Turtle()
     up.penup()
@@ -96,6 +141,9 @@ def game_start():
     down.setheading(90)
     down.shape('bottomPlayerV1.gif')
     #Functions
+
+  
+    
     
     def setHealthB(currentHp):
         fraction = currentHp / startHp   
