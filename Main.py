@@ -10,204 +10,215 @@ fire with w/Up
 
 '''
 #setup
+health=50
+speed=10
+string=str(health) + 'meow' +str(speed)
+print(string.split('meow'))
 def game_start():
-  pen.clear()
-  screen.bgcolor('White')
-  print('hi')
-  screen.tracer(0,2) #used to be 0,2
-  screen.setup(400,600)
-  upHp=50
-  downHp=50
-  upHpTurtle=t.Turtle()
-  downHpTurtle=t.Turtle()
-  upHpTurtle.pu()
-  downHpTurtle.pu()
-  topBullets=[]
-  bottomBullets=[]
-  
-  upHpTurtle.goto(-150,250)
-  downHpTurtle.goto(-150,-250)
-  
-  
-  goodblock1 = t.Turtle()
-  goodblock1.shape('square')
-  goodblock1.penup()
-  goodblock1.goto(150, 0)
-  
-  goodblock2 = t.Turtle()
-  goodblock2.shape('square')
-  goodblock2.penup()
-  goodblock2.goto(100, 0)
-  
-  goodblock3 = t.Turtle()
-  goodblock3.shape('square')
-  goodblock3.penup()
-  goodblock3.goto(60, 0)
-  
-  goodblock4 = t.Turtle()
-  goodblock4.shape('square')
-  goodblock4.penup()
-  goodblock4.goto(10, 0)
-  
-  blackPartB = t.Turtle()
-  blackPartB.shape("square")
-  blackPartB.shapesize(0.6, 5.1)
-  blackPartB.color("black")
-  blackPartB.pu()
-  blackPartB.goto(-100, -250)
-  
-  redPartB = t.Turtle()
-  redPartB.shape("square")
-  redPartB.shapesize(0.5, 5)
-  redPartB.color("red")
-  redPartB.pu()
-  redPartB.goto(-100, -250)
-  
-  blackPartT = t.Turtle()
-  blackPartT.shape("square")
-  blackPartT.shapesize(0.6, 5.1)
-  blackPartT.color("black")
-  blackPartT.pu()
-  blackPartT.goto(-100, 250)
-  
-  redPartT = t.Turtle()
-  redPartT.shape("square")
-  redPartT.shapesize(0.5, 5)
-  redPartT.color("red")
-  redPartT.pu()
-  redPartT.goto(-100, 250)
-  
-  
-  up = t.Turtle()
-  up.penup()
-  up.goto(0, 170)
-  up.setheading(270)
-  up.shape('topPlayerV1.gif')
-  
-  down = t.Turtle()
-  down.penup()
-  down.goto(0, -170)
-  down.setheading(90)
-  down.shape('bottomPlayerV1.gif')
-  #Functions
-  
-  def setHealthB(health):
-    redPartB.shapesize(0.5, 5 * health)
-    redPartB.goto(blackPartB.xcor() -50 * (1 -health), blackPartB.ycor())
-    screen.update()
-  
-  def setHealthT(health):
-    redPartT.shapesize(0.5, 5 * health)
-    redPartT.goto(blackPartT.xcor() -50 * (1 -health), blackPartT.ycor())
-    screen.update()
-  
-  def testUpHp():
-    print(upHp)
+    list=string.split('meow')
+    pen.clear()
+    screen.bgcolor('White')
+    print('hi')
+    screen.tracer(0,2) #used to be 0,2
+    screen.setup(400,600)
+    startHp=int(list[0])   # starting/max HP read from the list
+    upHp=startHp
+    downHp=startHp
+    upHpTurtle=t.Turtle()
+    downHpTurtle=t.Turtle()
+    upHpTurtle.pu()
+    downHpTurtle.pu()
+    topBullets=[]
+    bottomBullets=[]
     
-  def testDownHp():
-    print(downHp)
-  
-  def upRight():
-    for i in range(2):
-      up.setx(up.xcor() + 10)
-      screen.update()
-   
-  def upLeft():
-    for i in range(2):
-      up.setx(up.xcor() - 10)
-      screen.update()
-   
-  def downRight():
-    for i in range(2):
-      down.setx(down.xcor() + 10)
-      screen.update()
-   
-  def downLeft():
-    for i in range(2):
-      down.setx(down.xcor() - 10)
-      screen.update()
-      
-  def upBullet():
-    bullet=t.Turtle()
-    bullet.seth(270)
-    bullet.color("red")
-    bullet.pu()
-    bullet.shape("circle")
-    bullet.shapesize(0.5)
-    bullet.goto(up.pos())
-    bottomBullets.append(bullet)
-    # for i in range(300):
-    #   screen.update()
-    #   bullet.sety(bullet.ycor()-1.5)
-  
-  def downBullet():
-    bullet=t.Turtle()
-    bullet.seth(270)
-    bullet.color("red")
-    bullet.pu()
-    bullet.shape("circle")
-    bullet.shapesize(0.5)
-    bullet.goto(down.pos())
-    topBullets.append(bullet)
-    # for i in range(300):
-    #   screen.update()
-    #   bullet.sety(bullet.ycor()+1.5)
-  #onkeypress and game start function
+    upHpTurtle.goto(-150,250)
+    downHpTurtle.goto(-150,-250)
+    
+    
+    goodblock1 = t.Turtle()
+    goodblock1.shape('square')
+    goodblock1.penup()
+    goodblock1.goto(150, 0)
+    
+    goodblock2 = t.Turtle()
+    goodblock2.shape('square')
+    goodblock2.penup()
+    goodblock2.goto(100, 0)
+    
+    goodblock3 = t.Turtle()
+    goodblock3.shape('square')
+    goodblock3.penup()
+    goodblock3.goto(60, 0)
+    
+    goodblock4 = t.Turtle()
+    goodblock4.shape('square')
+    goodblock4.penup()
+    goodblock4.goto(10, 0)
+    
+    blackPartB = t.Turtle()
+    blackPartB.shape("square")
+    blackPartB.shapesize(0.6, 5.1)
+    blackPartB.color("black")
+    blackPartB.pu()
+    blackPartB.goto(-100, -250)
+    
+    redPartB = t.Turtle()
+    redPartB.shape("square")
+    redPartB.shapesize(0.5, 5)
+    redPartB.color("red")
+    redPartB.pu()
+    redPartB.goto(-100, -250)
+    
+    blackPartT = t.Turtle()
+    blackPartT.shape("square")
+    blackPartT.shapesize(0.6, 5.1)
+    blackPartT.color("black")
+    blackPartT.pu()
+    blackPartT.goto(-100, 250)
+    
+    redPartT = t.Turtle()
+    redPartT.shape("square")
+    redPartT.shapesize(0.5, 5)
+    redPartT.color("red")
+    redPartT.pu()
+    redPartT.goto(-100, 250)
+    
+    
+    up = t.Turtle()
+    up.penup()
+    up.goto(0, 170)
+    up.setheading(270)
+    up.shape('topPlayerV1.gif')
+    
+    down = t.Turtle()
+    down.penup()
+    down.goto(0, -170)
+    down.setheading(90)
+    down.shape('bottomPlayerV1.gif')
+    #Functions
+    
+    def setHealthB(currentHp):
+        fraction = currentHp / startHp   
+        redPartB.shapesize(0.5, 5 * fraction)
+        redPartB.goto(blackPartB.xcor() - 50 * (1 - fraction), blackPartB.ycor())
+        screen.update()
+    
+    def setHealthT(currentHp):
+        fraction = currentHp / startHp
+        redPartT.shapesize(0.5, 5 * fraction)
+        redPartT.goto(blackPartT.xcor() - 50 * (1 - fraction), blackPartT.ycor())
+        screen.update()
+    
+    def testUpHp():
+        print(upHp)
+        
+    def testDownHp():
+        print(downHp)
+    
+    def upRight():
+        list=string.split('meow')
+        for i in range(2):
+            up.setx(up.xcor() + int(list[1]))
+            screen.update()
+       
+    def upLeft():
+        list=string.split('meow')
+        for i in range(2):
+            up.setx(up.xcor() - int(list[1]))
+            screen.update()
+       
+    def downRight():
+        list=string.split('meow')
+        for i in range(2):
+            down.setx(down.xcor() + int(list[1]))
+            screen.update()
+       
+    def downLeft():
+        list=string.split('meow')
+        for i in range(2):
+            down.setx(down.xcor() - int(list[1]))
+            screen.update()
+          
+    def upBullet():
+        bullet=t.Turtle()
+        bullet.seth(270)
+        bullet.color("red")
+        bullet.pu()
+        bullet.shape("circle")
+        bullet.shapesize(0.5)
+        bullet.goto(up.pos())
+        bottomBullets.append(bullet)
+    
+    def downBullet():
+        bullet=t.Turtle()
+        bullet.seth(270)
+        bullet.color("red")
+        bullet.pu()
+        bullet.shape("circle")
+        bullet.shapesize(0.5)
+        bullet.goto(down.pos())
+        topBullets.append(bullet)
 
-  screen.onkeypress(testUpHp, 'q')
-  screen.onkeypress(testDownHp, 'e')
-  screen.onkeypress(upRight, 'd')
-  screen.onkeypress(upLeft, 'a')
-  screen.onkeypress(downRight, 'Right')
-  screen.onkeypress(downLeft, 'Left')
-  screen.onkeypress(upBullet,'w')
-  screen.onkeypress(downBullet,'Up')
-  screen.listen()
-  
-  #Moving blocks
-  while True:
-    goodblock1.setx(goodblock1.xcor()-0.12)
-    goodblock2.setx(goodblock2.xcor()-0.12)
-    goodblock3.setx(goodblock3.xcor()-0.12)
-    goodblock4.setx(goodblock4.xcor()-0.12)
-  
-    if(goodblock1.xcor() < -150):
-      goodblock1.setx(150)
-    if(goodblock2.xcor() < -150):
-      goodblock2.setx(150)
-    if(goodblock3.xcor() < -150):
-      goodblock3.setx(150)
-    if(up.xcor()<-200):
-      up.goto(200,170)
-    if(up.xcor()>200):
-      up.goto(-200,170)
-    if(down.xcor()<-200):
-      down.goto(200,-170)
-    if(down.xcor()>200):
-      down.goto(-200,-170)
-    # upHpTurtle.write("Hp: "+str(upHp), font=("Arial", 30, "normal"))
-    # downHpTurtle.write("Hp: "+str(downHp), font=("Arial", 30, "normal"))
-  
-    for b in topBullets:
-      b.sety(b.ycor()+1)
-      if b.distance(up)<20:
-        upHpTurtle.clear()
-        upHp-=0.1
-        setHealthT(upHp/50)
-      elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
-        b.goto(1000,1000)
-        b.ht()
-    for b in bottomBullets:
-      b.sety(b.ycor()-1)
-      if b.distance(down)<20:
-        downHpTurtle.clear()
-        downHp-=0.1
-        setHealthB(downHp/50)
-      elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
-        b.goto(1000,1000)
-        b.ht()
-  
-    screen.update()
+    #onkeypress and game start function
+    screen.onkeypress(testUpHp, 'q')
+    screen.onkeypress(testDownHp, 'e')
+    screen.onkeypress(upRight, 'd')
+    screen.onkeypress(upLeft, 'a')
+    screen.onkeypress(downRight, 'Right')
+    screen.onkeypress(downLeft, 'Left')
+    screen.onkeypress(upBullet,'w')
+    screen.onkeypress(downBullet,'Up')
+    screen.listen()
+    
+    #Moving blocks
+    while True:
+        if downHp <= 0:
+            quit(username2 + ' Wins!')
+        elif upHp <= 0:
+            quit(username + ' Wins!')
+        goodblock1.setx(goodblock1.xcor()-0.12)
+        goodblock2.setx(goodblock2.xcor()-0.12)
+        goodblock3.setx(goodblock3.xcor()-0.12)
+        goodblock4.setx(goodblock4.xcor()-0.12)
+    
+        if(goodblock1.xcor() < -150):
+            goodblock1.setx(150)
+        if(goodblock2.xcor() < -150):
+            goodblock2.setx(150)
+        if(goodblock3.xcor() < -150):
+            goodblock3.setx(150)
+        if(goodblock4.xcor() < -150):
+            goodblock4.setx(150)
+        if(up.xcor()<-200):
+            up.goto(200,170)
+        if(up.xcor()>200):
+            up.goto(-200,170)
+        if(down.xcor()<-200):
+            down.goto(200,-170)
+        if(down.xcor()>200):
+            down.goto(-200,-170)
+    
+        for b in topBullets:
+            b.sety(b.ycor()+1)
+            if b.distance(up)<20:
+                upHpTurtle.clear()
+                upHp -= 0.1
+                setHealthT(upHp)        # pass current HP; function divides by startHp
+            elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
+                b.goto(1000,1000)
+                b.ht()
+        for b in bottomBullets:
+            b.sety(b.ycor()-1)
+            if b.distance(down)<20:
+                downHpTurtle.clear()
+                downHp -= 0.1
+                setHealthB(downHp)      # pass current HP; function divides by startHp
+            elif b.distance(goodblock1)<15 or b.distance(goodblock2)<15 or b.distance(goodblock3)<15 or b.distance(goodblock4)<15:
+                b.goto(1000,1000)
+                b.ht()
+    
+        screen.update()
+
 # Menues by Aprameya:
 
 screen = t.Screen()
@@ -390,7 +401,7 @@ def draw_loading():
     screen.update()
     time.sleep(0.8)
     game_start()
-
+    
 def draw_menu():
     pen.clear()
     grid()
@@ -399,10 +410,13 @@ def draw_menu():
     text("M A I N   M E N U", 0, 220, 24, "#00ffb4")
     text("[ SELECT AN OPTION ]", 0, 200, 11, "#007858")
     box(-120, 60, 240, 60, "#141c28", "#00c88c")
-    text("Speed Settings", 0, 80, 14, "#00ffb4")
-    box(-120, -40, 240, 60, "#141c28", "#00c88c")
-    text("Difficulty Levels", 0, -20, 14, "#00ffb4")
+    text("See Terminal For Options", 0, 80, 14, "#00ffb4")
     screen.update()
+    global health, speed, string
+    health = int(input('Health? (Normally 50)'))
+    speed  = int(input('Speed? (Normally 10, makes movement more choppy)'))
+    string = str(health) + 'meow' + str(speed)
+    draw_loading()
 
 def draw_sub(title):
     pen.clear()
@@ -472,19 +486,6 @@ def click(x, y):
         elif 20 <= x <= 140 and 50 <= y <= 100:
             page = "loading"
             draw_loading()
-
-    elif page == "menu":
-        if -120 <= x <= 120 and 60 <= y <= 120:
-            page = "option1"
-            draw_sub("Speed Settings")
-        elif -120 <= x <= 120 and -40 <= y <= 20:
-            page = "option2"
-            draw_sub("Difficulty Levels")
-
-    elif page in ["option1", "option2"]:
-        if -150 <= x <= 150 and -200 <= y <= -150:
-            page = "menu"
-            draw_menu()
 
 draw_splash()
 screen.onclick(click)
