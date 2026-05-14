@@ -27,7 +27,7 @@ def game_start():
     list=string.split('meow')
     pen.clear()
     screen.bgcolor('#0b1324')
-    print('Hello, ' + username + " and " + username2 +'. Controls are WASD and arrow keys')
+    print('Hello, ' + username + " and " + username2 +'. Controls are a/d and left/right to move and w/up to fire.')
     screen.tracer(0,2) #used to be 0,2
     screen.setup(400,600)
     startHp=int(list[0])   # starting/max HP read from the list
