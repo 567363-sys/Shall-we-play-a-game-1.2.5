@@ -42,21 +42,23 @@ captchaList = ["okd9y7ipm99fnywehke8.gif", "Screenshot 2026-05-08 2.00.07 PM.gif
 answerList = ["dsjcbka", "E3TJ6jdp", "inquiry", "overlooks"]
 
 
-captcha = t.Turtle()
-captcha.shape("okd9y7ipm99fnywehke8.gif")
-captcha.ht()
+captchaMaker = t.Turtle()
+captchaMaker.shape("okd9y7ipm99fnywehke8.gif")
+captchaMaker.ht()
 
 
-def CAPTCHA():
+def CAPTCHA2():
+  captchaList = ["okd9y7ipm99fnywehke8.gif", "Screenshot 2026-05-08 2.00.07 PM.gif", "Screenshot 2026-05-08 1.47.51 PM.gif", "Screenshot 2026-05-08 1.47.37 PM.gif"]
+  answerList = ["dsjcbka", "E3TJ6jdp", "inquiry", "overlooks"]
   captchaNum = random.randint(0,3)
-  captcha.shape(captchaList[captchaNum])
-  captcha.st()
+  captchaMaker.shape(captchaList[captchaNum])
+  captchaMaker.st()
   response = input("What does the captcha say?")
   
   while(response != answerList[captchaNum]):
     response = input("What does the captcha say?")
   print("Successfully confirmed.")  
-  captcha.ht()  
+  captchaMaker.ht()  
   
-CAPTCHA()
+CAPTCHA2()
 screen.mainloop()
