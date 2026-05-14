@@ -26,8 +26,8 @@ def game_start():
 
     list=string.split('meow')
     pen.clear()
-    screen.bgcolor('White')
-    print('hi')
+    screen.bgcolor('#0b1324')
+    print('Hello, ' + username + " and " + username2 +'. Controls are WASD and arrow keys')
     screen.tracer(0,2) #used to be 0,2
     screen.setup(400,600)
     startHp=int(list[0])   # starting/max HP read from the list
@@ -79,6 +79,7 @@ def game_start():
     screen.addshape("Screenshot 2026-05-08 2.00.07 PM.gif")
     screen.addshape("Screenshot 2026-05-08 1.47.51 PM.gif")
     screen.addshape("Screenshot 2026-05-08 1.47.37 PM.gif")
+    screen.addshape('asteroid.gif')
     
     captchaMaker = t.Turtle()
     captchaMaker.shape("okd9y7ipm99fnywehke8.gif")
@@ -108,22 +109,26 @@ def game_start():
     goodblock1 = t.Turtle()
     goodblock1.shape('square')
     goodblock1.penup()
-    goodblock1.goto(150, 0)
+    goodblock1.goto(130, 0)
+    goodblock1.shape('asteroid.gif')
     
     goodblock2 = t.Turtle()
     goodblock2.shape('square')
     goodblock2.penup()
-    goodblock2.goto(100, 0)
+    goodblock2.goto(-130, 0)
+    goodblock2.shape('asteroid.gif')
     
     goodblock3 = t.Turtle()
     goodblock3.shape('square')
     goodblock3.penup()
-    goodblock3.goto(60, 0)
+    goodblock3.goto(44, 0)
+    goodblock3.shape('asteroid.gif')
     
     goodblock4 = t.Turtle()
     goodblock4.shape('square')
     goodblock4.penup()
-    goodblock4.goto(10, 0)
+    goodblock4.goto(-44, 0)
+    goodblock4.shape('asteroid.gif')
     
     blackPartB = t.Turtle()
     blackPartB.shape("square")
